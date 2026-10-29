@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    <title>Registration</title>
+</head>
+<body>
+    <header>
+        <h1>BASC E-LIBRARY</h1>
+    </header>
+    <main>
+        <section class="form-box">
+            <div class="form-box-head">
+                <h1>Login</h1>
+            </div>
+            <form action="">
+                <div class="input-box">
+                    <label for="email">Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p>
+                No account yet? <a href="{{url_for('signup')}}">Register here</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>
