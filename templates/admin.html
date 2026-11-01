@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+    <title>Admin</title>
+</head>
+
+<body>
+    <header>
+        <h1>Admin - Users</h1>
+        <a href="{{url_for('add_books')}}">Manage Books</a>
+    </header>
+    <main>
+        <div class="sec_cont">
+            
+        </div>
+        <section class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Validated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if user %}
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user[0]}}</td>
+                            <td>{{ user[1]}}</td>
+                            <td>{{ user[2]}}</td>
+                            <td>{{ user[4]}}</td>
+                            <td>
+                                {% if user[1] == 'Admin' %}
+                                    --
+                                {% else %}
+                                    {% if user[5] == '1'%}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user[0] != 1 %}
+                                    {% if user[5] != 'validated'%}
+                                        <form action="/validation/{{user['id']}}" method="post">
+                                            <button type="submit">Validate</button>
+                                        </form>
+                                    {% endif %}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6"> No Students</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+        </section>
+        <a href="{{url_for('borrow_req')}}">View Borrow Request</a>
+    </main>
+</body>
+
+</html>

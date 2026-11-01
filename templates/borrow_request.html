@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/borrow.css')}}">
+    <title>Borrow Request</title>
+</head>
+<body>
+    <header>
+        <h1>Admin - Borrow Requests</h1>
+        <a href="{{url_for('admin_dashboard')}}">Back to dashboard</a>
+    </header>
+    <main>
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Borrow Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if user %}
+                            {% for users in user %}
+                            <tr>
+                                <td>{{ user[0] }}</td>
+                                <td>{{ user[1] }}</td>
+                                <td>{{ user[2] }}</td>
+                                <td>{{ user[3] }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="6">No Books</td>
+                        </tr>
+                        {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

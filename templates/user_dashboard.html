@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>User Side</h1>
+    </header>
+    <nav class="navbar">
+        <div class="left-nav">
+            <a href="#">Library</a>
+            <a href="#books">Books</a>
+            <a href="#borrowed">My Borrowed Books</a>
+        </div>
+        <div class="right-nav">
+            <span>{{ session['name'] }}</span>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <section id="books" class="section">
+        <h2>Books</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Available Copies</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if books %}
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book[0] }}</td>
+                        <td>{{ book[1] }}</td>
+                        <td>{{ book[2] }}</td>
+                        <td>{{ book[3] }}</td>
+                        <td>
+                            {% if book[3] > 0 %}
+                            <form action="/request_borrow/{{ book[0] }}" method="POST">
+                                <button type="submit" class="borrow-btn">
+                                    Request Borrow
+                                </button>
+                            </form>
+                            {% else %}
+                            --
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">
+                            No Books Available
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+    <section id="borrowed" class="section">
+        <h2>My Borrowed Books</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Book</th>
+                    <th>Status</th>
+                    <th>Borrow Date</th>
+                    <th>Return Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if borrowed %}
+                    {% for row in borrowed %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>
+                                {% if row[4] %}
+                                    {{ row[4] }}
+                                {% else %}
+                                --
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if row[2] == "Approved" %}
+                                    <form action="/return_book/{{ row[0] }}" method="POST">
+                                        <button type="submit" class="return-btn">
+                                            Return
+                                        </button>
+                                    </form>
+                                {% else %}
+                                --
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">
+                            No Borrowed Books
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>
