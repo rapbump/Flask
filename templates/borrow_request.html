@@ -25,18 +25,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if user %}
-                            {% for users in user %}
+                    {% if borrow_requests %}
+                            {% for borrow in borrow_requests %}
                             <tr>
-                                <td>{{ user[0] }}</td>
-                                <td>{{ user[1] }}</td>
-                                <td>{{ user[2] }}</td>
-                                <td>{{ user[3] }}</td>
+                                <td>{{ borrow[0] }}</td>
+                                <td>{{ borrow[1] }}</td>
+                                <td>{{ borrow[2] }}</td>
+                                <td>{{ borrow[3] }}</td>
+                                <td>{{ borrow[4] }}</td>
+                                <td>
+                                    {% if borrow[4] == 'Pending' %}
+                                        <form action="{{ url_for('approve_borrow', record_id=borrow[0]) }}" method="post" style="display:inline;">
+                                            <button type="submit">Approve</button>
+                                        </form>
+                                        <form action="{{ url_for('reject_borrow', record_id=borrow[0]) }}" method="post" style="display:inline;">
+                                            <button type="submit">Reject</button>
+                                        </form>
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
                             </tr>
                             {% endfor %}
                         {% else %}
                         <tr>
-                            <td colspan="6">No Books</td>
+                            <td colspan="6">No Borrow Requests</td>
                         </tr>
                         {% endif %}
                 </tbody>

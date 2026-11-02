@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
-    <title>Registration</title>
+    <title>Login</title>
 </head>
 <body>
     <header>
@@ -15,6 +15,9 @@
             <div class="form-box-head">
                 <h1>Login</h1>
             </div>
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
             <form action="" method="post">
                 <div class="input-box">
                     <label for="email">Email</label>

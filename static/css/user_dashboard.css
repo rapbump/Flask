@@ -34,7 +34,7 @@ h1{
     color:#63b3ed;
 }
 
-.nav-right{
+.right-nav{
     display:flex;
     gap:20px;
 }
@@ -48,13 +48,11 @@ h1{
     border-radius:5px;
 }
 
-.books-section,
-.borrowed-section{
+.section{
     margin-top:30px;
 }
 
-.books-section h2,
-.borrowed-section h2{
+.section h2{
     margin-bottom:15px;
 }
 
@@ -105,6 +103,6 @@ tr:hover{
     background:#1e874b;
 }
 
-.borrowed-section{
+.section#borrowed{
     margin-top:80px;
 }

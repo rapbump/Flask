@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if user %}
+                    {% if users %}
                         {% for user in users %}
                         <tr>
                             <td>{{ user[0]}}</td>
@@ -38,10 +38,10 @@
                             <td>{{ user[2]}}</td>
                             <td>{{ user[4]}}</td>
                             <td>
-                                {% if user[1] == 'Admin' %}
+                                {% if user[4] == 'admin' %}
                                     --
                                 {% else %}
-                                    {% if user[5] == '1'%}
+                                    {% if user[5]|string == '1' %}
                                         Yes
                                     {% else %}
                                         No
@@ -49,12 +49,10 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if user[0] != 1 %}
-                                    {% if user[5] != 'validated'%}
-                                        <form action="/validation/{{user['id']}}" method="post">
+                                {% if user[4] != 'admin' and user[5]|string != '1' %}
+                                        <form action="{{ url_for('validation', user_id=user[0]) }}" method="post">
                                             <button type="submit">Validate</button>
                                         </form>
-                                    {% endif %}
                                 {% else %}
                                     --
                                 {% endif %}
